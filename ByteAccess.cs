@@ -10,7 +10,9 @@ namespace GaloreWare.IO
     {
         BufferedStream _data;
 
+        public bool Loaded { get; private set; }
         public long Length { get { return _data.Length; } }
+        public List<string> Errors { get; private set; }
 
         public long Offset(long index)
         {
@@ -54,8 +56,17 @@ namespace GaloreWare.IO
 
         public ByteAccess(string filename)
         {
-            _data = new BufferedStream(new FileStream(filename, FileMode.Open, FileAccess.Read));
+            Loaded = false;
 
+            try
+            {
+                _data = new BufferedStream(new FileStream(filename, FileMode.Open, FileAccess.Read));
+                Loaded = true;
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(ex.Message);
+            }
         }
 
         public string GetASCIIString(int offset, int length)
