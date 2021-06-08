@@ -79,6 +79,9 @@ namespace GaloreWare.IO
 
         public void Write(int offset, byte value)
         {
+            if (offset > _data.Length)
+                _data.SetLength(offset + 1);
+
             _data.Position = offset;
             _data.WriteByte(value);
         }
