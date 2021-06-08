@@ -13,6 +13,9 @@ namespace GaloreWare.IO
 
         public long Offset(long index)
         {
+            if (_data.Length < index)
+                _data.SetLength(index);
+            
             long r = 0;
             long offset = index % _data.Length;
 
@@ -62,7 +65,10 @@ namespace GaloreWare.IO
 
         public ByteWrite(int init_size=-1)
         {
-            _data = init_size == -1 ? new MemoryStream() : new MemoryStream(init_size);
+            _data = new MemoryStream();
+
+            if (init_size > 0)
+                _data.SetLength(init_size);
         }
 
         public void Write(int offset, byte[] data, int size)
