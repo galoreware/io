@@ -77,12 +77,18 @@ namespace GaloreWare.IO
             _data.Write(data, 0, size);
         }
 
+        public void Write(int offset, byte value)
+        {
+            _data.Position = offset;
+            _data.WriteByte(value);
+        }
+
         public string ReadASCIIString(int offset, int length)
         {
             return ASCIIEncoding.ASCII.GetString(this[offset, length]).Replace("\0", string.Empty);
         }
 
-        public Int16 ReadInt16(int offset)
+        public int ReadInt16(int offset)
         {
             return BitConverter.ToInt16(this[offset, 2], 0);
         }

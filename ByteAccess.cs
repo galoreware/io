@@ -69,6 +69,12 @@ namespace GaloreWare.IO
             }
         }
 
+        public ByteAccess(byte[] data)
+        {
+            _data = new BufferedStream(new MemoryStream(data));
+            Loaded = true;
+        }
+        
         public string GetASCIIString(int offset, int length)
         {
             return ASCIIEncoding.ASCII.GetString(this[offset, length]).Replace("\0", string.Empty);
