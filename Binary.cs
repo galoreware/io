@@ -11,6 +11,10 @@ namespace GaloreWare.IO
     {
         MemoryStream _data;
 
+        public bool Loaded { get; private set; }
+        public long Length { get { return _data.Length; } }
+        public List<string> Errors { get; private set; }
+
         public long Offset(long index)
         {
             if (_data.Length < index)
@@ -61,6 +65,12 @@ namespace GaloreWare.IO
             {
                 fs.CopyTo(_data);
             }
+        }
+
+        public Binary(byte[] data)
+        {
+            _data = new MemoryStream(data);
+            Loaded = true;
         }
 
         public Binary(int init_size = -1)
@@ -130,6 +140,9 @@ namespace GaloreWare.IO
             File.WriteAllBytes(filename, _data.ToArray());
         }
 
-
+        public void SaveOffset(string filename, int offset, int lenght)
+        {
+            File.WriteAllBytes(filename, this[offset, lenght]);
+        }
     }
 }
