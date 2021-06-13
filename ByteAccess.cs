@@ -6,6 +6,7 @@ using System.IO;
 
 namespace GaloreWare.IO
 {
+    [Obsolete("Replace by Binary", true)]
     public class ByteAccess
     {
         BufferedStream _data;
@@ -92,8 +93,7 @@ namespace GaloreWare.IO
 
         public void SaveOffset(string filename, int offset, int lenght)
         {
-            byte[] buffer = this[offset, lenght];
-            File.WriteAllBytes(filename,buffer);
+            File.WriteAllBytes(filename, this[offset, lenght]);
         }
     }
 }

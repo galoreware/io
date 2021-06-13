@@ -7,8 +7,7 @@ using System.IO;
 
 namespace GaloreWare.IO
 {
-    [Obsolete("Replace by Binary", true)]
-    public class ByteWrite
+    public class Binary
     {
         MemoryStream _data;
 
@@ -55,7 +54,7 @@ namespace GaloreWare.IO
             }
         }
 
-        public ByteWrite(string filename)
+        public Binary(string filename)
         {
             _data = new MemoryStream();
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
@@ -64,7 +63,7 @@ namespace GaloreWare.IO
             }
         }
 
-        public ByteWrite(int init_size=-1)
+        public Binary(int init_size = -1)
         {
             _data = new MemoryStream();
 
@@ -130,5 +129,7 @@ namespace GaloreWare.IO
         {
             File.WriteAllBytes(filename, _data.ToArray());
         }
+
+
     }
 }
